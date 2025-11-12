@@ -1,0 +1,461 @@
+{
+  "info": {
+    "_postman_id": "fcbc0818-2580-4e98-9ef2-d3eceaee3d90",
+    "name": "SmartFarm HW3 - Grad Tasks (Point 10) - Leela Phanidhar Sai Teja",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for HW3 SmartFarm Graduate Tasks (Point 10):\n- 10(a) Pagination & Advanced Filtering on GET /api/readings\n- 10(b) Centralized Error Middleware & /api/fail\nIncludes pagination defaults, filters, invalid queries, and 400/404/500 error cases."
+  },
+  "item": [
+    {
+      "name": "10a_C1_basic_default_pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ]
+        },
+        "description": "C1: Basic GET /api/readings with default page=1, limit=10."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C1_explicit_page_limit",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?page=1&limit=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "C1: Explicit page=1, limit=10 to show pagination metadata."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C2_filter_type_temperature",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?type=temperature",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "temperature"
+            }
+          ]
+        },
+        "description": "C2: Filter by sensor type = temperature."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C2_filter_type_humidity_min_max",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?type=humidity&minValue=10&maxValue=50",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "humidity"
+            },
+            {
+              "key": "minValue",
+              "value": "10"
+            },
+            {
+              "key": "maxValue",
+              "value": "50"
+            }
+          ]
+        },
+        "description": "C2: Combined filters type=humidity, 10 <= value <= 50."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C2_filter_minValue_only",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?minValue=20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "minValue",
+              "value": "20"
+            }
+          ]
+        },
+        "description": "C2: Filter readings where value >= 20."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C2_filter_maxValue_only",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?maxValue=30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "maxValue",
+              "value": "30"
+            }
+          ]
+        },
+        "description": "C2: Filter readings where value <= 30."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C2_filter_time_range_from_to",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?from=2025-11-01T00:00:00Z&to=2025-11-02T00:00:00Z",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "2025-11-01T00:00:00Z"
+            },
+            {
+              "key": "to",
+              "value": "2025-11-02T00:00:00Z"
+            }
+          ]
+        },
+        "description": "C2: Filter readings by timestamp range [from, to]."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C3_metadata_with_results",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?page=1&limit=5",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "C3: Show page/pageSize/totalItems/totalPages/hasNext/hasPrev when there are results."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C3_out_of_range_page_999",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?page=999&limit=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "999"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "C3/C5: Out-of-range page: metadata present, results should be empty array."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C4_invalid_type_param",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?type=rain",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "rain"
+            }
+          ]
+        },
+        "description": "C4: Invalid type should trigger 400 with JSON error."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C4_invalid_minValue_not_number",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?minValue=abc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "minValue",
+              "value": "abc"
+            }
+          ]
+        },
+        "description": "C4: Non-numeric minValue should return 400 with clear message."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C4_invalid_range_min_greater_than_max",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?minValue=50&maxValue=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "minValue",
+              "value": "50"
+            },
+            {
+              "key": "maxValue",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "C4/C5: minValue > maxValue should trigger 400 JSON error."
+      },
+      "response": []
+    },
+    {
+      "name": "10a_C4_invalid_from_date_format",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/readings?from=not-a-date",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "readings"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "not-a-date"
+            }
+          ]
+        },
+        "description": "C4: Invalid 'from' timestamp should trigger 400 JSON error."
+      },
+      "response": []
+    },
+    {
+      "name": "10b_C1_404_sensor_not_found",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sensors/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sensors",
+            "999"
+          ]
+        },
+        "description": "C1/C2: 404 missing sensor, JSON error with timestamp/requestId/path/method/status/message."
+      },
+      "response": []
+    },
+    {
+      "name": "10b_C1_400_validation_bad_sensor_body",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"location\": \"A\",\n  \"type\": \"rain\",\n  \"status\": \"on\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sensors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sensors"
+          ]
+        },
+        "description": "C4/C5: Triggers Joi validation error -> 400 handled by global error middleware."
+      },
+      "response": []
+    },
+    {
+      "name": "10b_C3_500_simulated_fail_route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/fail",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "fail"
+          ]
+        },
+        "description": "C3/C5: Simulated failure route -> 500 error via next(err)."
+      },
+      "response": []
+    }
+  ]
+}
