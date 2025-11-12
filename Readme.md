@@ -10,6 +10,8 @@ This project implements a RESTful API for managing IoT sensors and their environ
 It demonstrates Express.js fundamentals, CRUD operations, middleware, input validation with Joi,
 query filtering, pagination, and centralized error handling. Designed for graduate-level coursework in Web Technologies.
 
+# GitHub Link: https://github.com/nlp-saiteja/smartfarm-api.git
+
 ---
 
 ## 1. Installation & Setup
@@ -42,7 +44,7 @@ query filtering, pagination, and centralized error handling. Designed for gradua
 
 ---
 
-## ⚙️ 2. Environment Variables
+## 2. Environment Variables
 
 - `PORT`: Defaults to **3000** if not provided.
 - `NODE_ENV`: Can be set to `development` (shows stack traces) or `production` (hides stack traces).
